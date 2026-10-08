@@ -28,7 +28,11 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`TouchGrass AI server running on port ${PORT}`);
-});
+// Start Server if run directly
+if (process.env.NODE_ENV !== 'production' || require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`TouchGrass AI server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
