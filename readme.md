@@ -3,7 +3,12 @@
 > **"Your next adventure starts when you put your phone down."**  
 > Personalized outdoor missions powered by local open-weight AI.
 
-TouchGrass AI is an open-source web application designed to counter screen fatigue by transforming generative AI into a catalyst for physical outdoor exploration. Using a locally running **Qwen 3 4B** model via **Ollama**, live weather metrics from **Open-Meteo**, and public green spaces from **OpenStreetMap**, TouchGrass AI crafts structured, sensory micro-missions that encourage users to put their devices away and reconnect with nature.
+TouchGrass AI is an open-source web application designed to counter screen fatigue and doomscrolling by transforming generative AI into a catalyst for physical outdoor exploration. Using a locally running **Qwen 3 4B** model via **Ollama**, live weather metrics from **Open-Meteo**, and public green spaces from **OpenStreetMap**, TouchGrass AI crafts structured, sensory micro-missions that encourage users to put their devices away and reconnect with nature.
+
+---
+
+## 🏆 Hacktoberfest Open-Source AI Challenge
+Built for the **Hacktoberfest Open-Source AI Challenge Week 1: Touch Grass**.
 
 ---
 
@@ -18,10 +23,10 @@ Instead of using AI to keep users glued to another screen, **TouchGrass AI turns
 ## What It Does
 
 TouchGrass AI generates personalized outdoor micro-adventures based on:
-- **Current State of Mind**: Relaxed, Stressed, Bored, Low Energy, Energetic, or Mental Break.
+- **Current State of Mind**: Relaxed, Stressed, Bored, Low Energy, Energetic, or Need a Mental Break.
 - **Available Time**: Realistic itineraries scaled from quick 15-minute resets to 2+ hour excursions.
 - **Difficulty & Intensity**: Easy strolls, moderate exploratory walks, or brisk physical movement.
-- **Activity Style**: Nature observation, walking, running, photography, birding, or mindfulness.
+- **Activity Style**: Nature observation, walking, running, photography, birding, gardening, or mindfulness.
 - **Environmental Context**: Live temperature, wind speed, precipitation probability, and nearby public parks.
 
 Every mission delivers:
@@ -109,8 +114,8 @@ Clone the repository and install dependencies for both backend and frontend:
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/your-username/touchgrass-ai.git
-cd touchgrass-ai
+git clone https://github.com/RajBhokare/Hacktoberfest-Touchgrass_ai.git
+cd Hacktoberfest-Touchgrass_ai
 
 # 2. Install backend dependencies
 cd server
