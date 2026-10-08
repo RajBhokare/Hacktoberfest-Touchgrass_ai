@@ -2,24 +2,75 @@
 
 > AI-powered outdoor missions designed to get people off their screens and into the real world.
 
-TouchGrass AI uses a locally running open-weight AI model through Ollama to generate personalized outdoor activities based on the user's mood, available time, difficulty, weather, and preferences.
+TouchGrass AI uses a locally running open-weight AI model (**Qwen 3 4B**) through **Ollama** to generate personalized outdoor activities and missions based on user mood, available time, difficulty level, weather conditions, and personal preferences.
 
-## Core AI
+---
 
-- Ollama
-- Qwen 3 4B
-- Local inference
+## 🚀 Hackathon Submission
+Built for the **Hacktoberfest Open-Source AI Challenge Week 1: Touch Grass**.
 
-## Planned Stack
+---
 
-- React
-- Vite
-- Tailwind CSS
-- Node.js
-- Express
-- Open-Meteo
-- OpenStreetMap
+## 🛠️ Tech Stack & Architecture
 
-## Project Status
+- **Frontend (`/client`)**: React (JavaScript), Vite
+- **Backend (`/server`)**: Node.js, Express, CORS, dotenv
+- **Core AI**: Ollama running `qwen3:4b` locally (no external paid/closed APIs)
 
-🚧 Under development for the Hacktoberfest Open-Source AI Challenge — Touch Grass.
+### Project Structure
+
+```text
+touchgrass-ai/
+├── client/
+│   ├── public/
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── services/
+│       ├── hooks/
+│       ├── utils/
+│       ├── App.jsx
+│       ├── main.jsx
+│       └── index.css
+│
+├── server/
+│   ├── routes/
+│   ├── services/
+│   ├── middleware/
+│   └── index.js
+│
+├── .gitignore
+├── README.md
+└── package.json
+```
+
+---
+
+## 📦 Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- [Ollama](https://ollama.ai) installed with `qwen3:4b` pulled:
+  ```bash
+  ollama run qwen3:4b
+  ```
+
+### 1. Server Setup
+```bash
+cd server
+npm install
+npm run dev # Runs nodemon on port 5000 (or PORT env)
+```
+
+### 2. Client Setup
+```bash
+cd client
+npm install
+npm run dev # Starts Vite dev server
+```
+
+---
+
+## 🔍 API Endpoints (Current)
+
+- `GET /api/health` - API health check status
