@@ -5,16 +5,17 @@ const { getWeather } = require('../services/weather');
 const { getNearbyOutdoorPlaces } = require('../services/places');
 
 /**
- * Strict JSON extractor and validator for Qwen 3 4B output
+ * Robust JSON extractor and validator for Qwen 3 4B output
  * @param {string} rawText
+ * @param {{ mood: string, time: string, difficulty: string }} fallbackContext
  * @returns {Object}
  */
-function extractAndValidateMission(rawText) {
+function extractAndValidateMission(rawText, fallbackContext) {
   if (!rawText || typeof rawText !== 'string') {
     throw new Error('Empty or non-string response received from AI model');
   }
 
-  // 1. Remove <think>...</think> reasoning blocks if present (common in Qwen3)
+  // 1. Remove <think>...</think> reasoning blocks if present (Qwen3 feature)
   let cleaned = rawText.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
 
   // 2. Remove markdown code fences if model wrapped output in ```json ... ```
@@ -37,58 +38,61 @@ function extractAndValidateMission(rawText) {
     throw new Error(`JSON syntax error in AI output: ${err.message}`);
   }
 
-  // 4. Strict field validation
   if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
     throw new Error('Parsed AI mission is not an object');
   }
 
-  const title = typeof parsed.title === 'string' ? parsed.title.trim() : '';
-  const duration = typeof parsed.duration === 'string' ? parsed.duration.trim() : '';
-  const difficulty = typeof parsed.difficulty === 'string' ? parsed.difficulty.trim() : '';
-  const description = typeof parsed.description === 'string' ? parsed.description.trim() : '';
-  const phoneRule = typeof parsed.phoneRule === 'string' ? parsed.phoneRule.trim() : '';
-  const safetyNote = typeof parsed.safetyNote === 'string' ? parsed.safetyNote.trim() : '';
+  // Handle camelCase and snake_case keys
+  const title = String(parsed.title || parsed.mission_title || parsed.name || '').trim();
+  const duration = String(parsed.duration || parsed.time || parsed.target_time || fallbackContext.time || '30 min').trim();
+  const difficulty = String(parsed.difficulty || parsed.difficulty_level || fallbackContext.difficulty || 'Easy').trim();
+  const description = String(parsed.description || parsed.objective || parsed.summary || '').trim();
+  const phoneRule = String(parsed.phoneRule || parsed.phone_rule || parsed.phone_instruction || 'Pocket your phone immediately to stay present and avoid digital distractions.').trim();
+  const safetyNote = String(parsed.safetyNote || parsed.safety_note || parsed.safety || 'Stay aware of your surroundings, traffic, and footing at all times.').trim();
 
   if (!title || title.length < 3) {
-    throw new Error('Mission title is missing or too short');
-  }
-  if (!duration) {
-    throw new Error('Mission duration is missing');
-  }
-  if (!difficulty) {
-    throw new Error('Mission difficulty is missing');
+    throw new Error(`Mission title is missing or too short (length: ${title.length})`);
   }
   if (!description || description.length < 10) {
-    throw new Error('Mission description is missing or too short');
-  }
-  if (!phoneRule || phoneRule.length < 5) {
-    throw new Error('Mission phoneRule is missing or invalid');
-  }
-  if (!safetyNote || safetyNote.length < 5) {
-    throw new Error('Mission safetyNote is missing or invalid');
+    throw new Error(`Mission description is missing or too short (length: ${description.length})`);
   }
 
-  // Validate challenges: must be an array of EXACTLY 3 non-empty strings
-  if (!Array.isArray(parsed.challenges) || parsed.challenges.length !== 3) {
-    throw new Error(`Expected exactly 3 outdoor challenges, received ${parsed.challenges?.length || 0}`);
+  // Handle challenges array (strings, objects, or challenge1/2/3 keys)
+  let rawChallenges = parsed.challenges || parsed.tasks || parsed.micro_challenges || [];
+  if (!Array.isArray(rawChallenges)) {
+    if (parsed.challenge1 && parsed.challenge2 && parsed.challenge3) {
+      rawChallenges = [parsed.challenge1, parsed.challenge2, parsed.challenge3];
+    } else {
+      throw new Error('Challenges must be an array of tasks');
+    }
   }
 
   const sanitizedChallenges = [];
-  for (let i = 0; i < parsed.challenges.length; i++) {
-    const item = parsed.challenges[i];
-    const text = typeof item === 'string' ? item.trim() : '';
-    if (!text || text.length < 4) {
-      throw new Error(`Challenge ${i + 1} is empty or too short`);
+  for (const item of rawChallenges) {
+    let text = '';
+    if (typeof item === 'string') {
+      text = item.trim();
+    } else if (item && typeof item === 'object') {
+      text = String(item.text || item.title || item.instruction || item.description || item.challenge || '').trim();
     }
-    sanitizedChallenges.push(text);
+    if (text && text.length >= 4) {
+      sanitizedChallenges.push(text);
+    }
   }
+
+  if (sanitizedChallenges.length < 3) {
+    throw new Error(`Expected at least 3 outdoor challenges, extracted ${sanitizedChallenges.length}`);
+  }
+
+  // Ensure exactly 3 challenges
+  const finalChallenges = sanitizedChallenges.slice(0, 3);
 
   return {
     title,
     duration,
     difficulty,
     description,
-    challenges: sanitizedChallenges,
+    challenges: finalChallenges,
     phoneRule,
     safetyNote,
   };
@@ -166,7 +170,7 @@ INSTRUCTIONS:
 4. Phone-Free: Require the user to pocket their phone during the session.
 5. Location Rule: If verified nearby places are provided above, suggest one. NEVER invent fake specific park names.
 6. Weather Adaptation: If current weather has rain, high wind, or extreme temperatures, adapt the activity and safety precautions accordingly.
-7. Challenges: You MUST provide EXACTLY 3 actionable outdoor challenges.
+7. Challenges: You MUST provide EXACTLY 3 actionable outdoor challenges as a list of strings in the "challenges" array.
 
 OUTPUT FORMAT:
 Return ONLY a raw, valid JSON object matching this schema with NO markdown code fences and NO extra words:
@@ -188,12 +192,13 @@ Return ONLY a raw, valid JSON object matching this schema with NO markdown code 
 
     let mission;
     try {
-      mission = extractAndValidateMission(rawResponse);
+      mission = extractAndValidateMission(rawResponse, { mood, time, difficulty });
     } catch (validationErr) {
       console.error('Mission validation failed:', validationErr.message, '\nRaw Response:', rawResponse);
       return res.status(500).json({
         error: 'Quality & Structure Validation Error',
-        message: 'The AI model generated an incomplete or invalid mission structure. Please try again.'
+        message: 'The AI model generated an incomplete or invalid mission structure. Please try again.',
+        details: validationErr.message
       });
     }
 

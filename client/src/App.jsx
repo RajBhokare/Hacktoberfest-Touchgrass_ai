@@ -25,6 +25,7 @@ export default function App() {
           <GenerateMissionPage
             onNavigate={setCurrentPage}
             onMissionGenerated={setActiveMission}
+            existingMission={activeMission}
           />
         );
       case 'mission':
@@ -48,14 +49,14 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#fbf9f5] text-[#1d2520] selection:bg-[#c8e2d2] selection:text-[#132a1c]">
+    <div className="min-h-screen flex flex-col bg-[#fbf9f5] text-[#17241c] selection:bg-[#c8e2d2] selection:text-[#132a1c]">
       {/* Top Navigation */}
       <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />
 
       {/* Main Content Area */}
-      <div className="flex-1">
+      <main className="flex-1">
         {renderCurrentPage()}
-      </div>
+      </main>
 
       {/* Persistent Nature Footer */}
       <Footer />

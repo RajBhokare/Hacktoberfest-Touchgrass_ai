@@ -2,25 +2,46 @@
 
 @layer base {
   :root {
-    --forest-900: #132a1c;
+    --forest-950: #0e1e14;
+    --forest-900: #152a1e;
     --forest-800: #1b3b2b;
     --forest-700: #26533c;
     --forest-600: #347051;
     --forest-500: #46916b;
     --earth-warm: #fbf9f5;
     --earth-card: #f5f1e8;
+    --earth-subtle: #f0ece1;
     --earth-border: #e3ded2;
-    --earth-text: #1d2520;
-    --earth-muted: #5e6b63;
+    --earth-text: #17241c;
+    --earth-muted: #536459;
   }
 
   body {
     background-color: #fbf9f5;
-    color: #1d2520;
+    color: #17241c;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     min-height: 100vh;
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Accessibility: Focus rings */
+  :focus-visible {
+    outline: 2px solid #26533c;
+    outline-offset: 2px;
+  }
+
+  /* Accessibility: Respect user's motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }

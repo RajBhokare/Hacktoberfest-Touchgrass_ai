@@ -1,7 +1,6 @@
 import React from 'react';
 import Badge from '../components/Badge';
 import Button from '../components/Button';
-import PageContainer from '../components/PageContainer';
 
 /**
  * HomePage Component
@@ -17,27 +16,27 @@ export default function HomePage({ onNavigate }) {
   };
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-12">
+    <div className="space-y-20 sm:space-y-28 pb-16">
       {/* Hero Section */}
-      <section className="pt-8 sm:pt-16 text-center max-w-3xl mx-auto px-4">
+      <section className="pt-10 sm:pt-20 text-center max-w-3xl mx-auto px-4 sm:px-6">
         <Badge variant="forest" className="mb-6">
-          LOCAL AI • REAL-WORLD ADVENTURES
+          LOCAL OPEN-WEIGHT AI • PRIVACY FIRST
         </Badge>
 
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#152a1e] tracking-tight leading-[1.15] mb-6">
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#152a1e] tracking-tight leading-[1.12] mb-6">
           Your next adventure starts when you put your phone down.
         </h1>
 
-        <p className="text-base sm:text-xl text-[#4f5f55] leading-relaxed mb-8 sm:mb-10 max-w-2xl mx-auto font-normal">
-          TouchGrass AI creates personalized outdoor missions using local open-weight AI — so the screen helps you leave the screen.
+        <p className="text-lg sm:text-xl text-[#4a5b51] leading-relaxed mb-10 max-w-2xl mx-auto font-normal">
+          Personalized outdoor missions powered by local open-weight AI.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 max-w-md mx-auto">
           <Button
             variant="primary"
             size="lg"
             onClick={() => onNavigate('generate')}
-            className="w-full sm:w-auto shadow-md"
+            className="w-full sm:w-auto shadow-sm"
           >
             <span>🌿</span>
             <span>Create My Mission</span>
@@ -52,66 +51,97 @@ export default function HomePage({ onNavigate }) {
             How It Works
           </Button>
         </div>
+
+        {/* Quiet assurance banner */}
+        <div className="mt-8 flex items-center justify-center gap-2 text-xs text-[#627368]">
+          <span className="inline-block w-2 h-2 rounded-full bg-[#347051]" />
+          <span>Runs 100% locally with Qwen 3 4B. No cloud tracking.</span>
+        </div>
       </section>
 
       {/* Visual Flow Representation: AI → Mission → Outside */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="bg-[#f4efe4] border border-[#e1dacd] rounded-3xl p-6 sm:p-10 shadow-xs">
-          <div className="text-center mb-8">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#5c6e62]">
-              The Antidote to Screen Fatigue
+        <div className="bg-[#f5f1e8] border border-[#e2ddd0] rounded-3xl p-6 sm:p-12">
+          <div className="text-center mb-10">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#536459]">
+              The Real-World Loop
             </span>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#1b3b2b] mt-1">
-              A Thoughtful Loop Built for the Real World
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#152a1e] mt-2">
+              From Blue Light to Fresh Air
             </h2>
+            <p className="text-sm sm:text-base text-[#5c6d62] mt-2 max-w-xl mx-auto">
+              Technology should give you back your attention, not steal more of it.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
-            {/* Step 1 */}
-            <div className="bg-[#fbf9f5] border border-[#e3ded2] rounded-2xl p-6 flex flex-col items-center text-center shadow-xs">
+            {/* Step 1: AI */}
+            <div className="bg-[#fbf9f5] border border-[#e5dfd2] rounded-2xl p-7 flex flex-col items-center text-center shadow-xs">
               <div className="w-14 h-14 rounded-2xl bg-[#e9f2ec] text-[#1b3b2b] flex items-center justify-center text-2xl font-bold mb-4">
                 🧠
               </div>
-              <div className="text-xs font-semibold text-[#347051] uppercase tracking-wider mb-1">
-                Step 1: Local AI
+              <div className="text-xs font-bold text-[#347051] uppercase tracking-wider mb-1">
+                Phase 1: Local AI
               </div>
-              <h3 className="text-base font-bold text-[#1b3b2b] mb-2">
-                Context-Aware Intelligence
+              <h3 className="text-lg font-bold text-[#152a1e] mb-2">
+                Context-Aware Generation
               </h3>
-              <p className="text-xs sm:text-sm text-[#5f6f65] leading-relaxed">
-                Runs completely on your device with Ollama & Qwen. It evaluates your current energy, mood, and available time.
+              <p className="text-sm text-[#5a6b60] leading-relaxed">
+                Evaluates your mood, available time, and outdoor conditions using local Qwen 3 4B on Ollama. Private and instantaneous.
               </p>
             </div>
 
-            {/* Step 2 */}
-            <div className="bg-[#fbf9f5] border border-[#e3ded2] rounded-2xl p-6 flex flex-col items-center text-center shadow-xs">
+            {/* Step 2: Mission */}
+            <div className="bg-[#fbf9f5] border border-[#e5dfd2] rounded-2xl p-7 flex flex-col items-center text-center shadow-xs">
               <div className="w-14 h-14 rounded-2xl bg-[#fef3e2] text-[#8a5d1b] flex items-center justify-center text-2xl font-bold mb-4">
                 📋
               </div>
-              <div className="text-xs font-semibold text-[#8a5d1b] uppercase tracking-wider mb-1">
-                Step 2: Mission
+              <div className="text-xs font-bold text-[#8a5d1b] uppercase tracking-wider mb-1">
+                Phase 2: The Mission
               </div>
-              <h3 className="text-base font-bold text-[#1b3b2b] mb-2">
-                Focused Micro-Challenges
+              <h3 className="text-lg font-bold text-[#152a1e] mb-2">
+                Three Sensory Tasks
               </h3>
-              <p className="text-xs sm:text-sm text-[#5f6f65] leading-relaxed">
-                You receive 3 actionable, sensory outdoor challenges with a simple rule: pocket your phone during the walk.
+              <p className="text-sm text-[#5a6b60] leading-relaxed">
+                Receive three achievable, non-repetitive challenges and an explicit phone-down rule before you step outside.
               </p>
             </div>
 
-            {/* Step 3 */}
-            <div className="bg-[#fbf9f5] border border-[#e3ded2] rounded-2xl p-6 flex flex-col items-center text-center shadow-xs">
+            {/* Step 3: Outside */}
+            <div className="bg-[#fbf9f5] border border-[#e5dfd2] rounded-2xl p-7 flex flex-col items-center text-center shadow-xs">
               <div className="w-14 h-14 rounded-2xl bg-[#ecf4df] text-[#3e5223] flex items-center justify-center text-2xl font-bold mb-4">
                 🌲
               </div>
-              <div className="text-xs font-semibold text-[#3e5223] uppercase tracking-wider mb-1">
-                Step 3: Outside
+              <div className="text-xs font-bold text-[#3e5223] uppercase tracking-wider mb-1">
+                Phase 3: Outside
               </div>
-              <h3 className="text-base font-bold text-[#1b3b2b] mb-2">
+              <h3 className="text-lg font-bold text-[#152a1e] mb-2">
                 Real World Presence
               </h3>
-              <p className="text-xs sm:text-sm text-[#5f6f65] leading-relaxed">
-                Breathe fresh air, feel the earth beneath your feet, and return with a refreshed mind and restored focus.
+              <p className="text-sm text-[#5a6b60] leading-relaxed">
+                Pocket your phone, breathe the outdoor air, observe nature directly, and return refreshed without screen fatigue.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Explanation of Local AI Section */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6">
+        <div className="bg-[#f8f5ee] border border-[#e3ded2] rounded-3xl p-6 sm:p-10">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+            <div className="w-16 h-16 rounded-2xl bg-[#1b3b2b] text-white flex items-center justify-center text-3xl shrink-0">
+              🔒
+            </div>
+            <div>
+              <Badge variant="moss" className="mb-2">
+                WHY LOCAL AI MATTERS
+              </Badge>
+              <h2 className="text-xl sm:text-2xl font-bold text-[#152a1e] tracking-tight">
+                Zero Cloud Tracking. 100% On-Device.
+              </h2>
+              <p className="text-sm sm:text-base text-[#56685d] mt-2 leading-relaxed">
+                Unlike cloud AI services that log your personal routines, TouchGrass AI uses <strong>Qwen 3 4B</strong> running locally inside your machine through <strong>Ollama</strong>. Your emotions, location context, and outdoor habits stay entirely on your computer.
               </p>
             </div>
           </div>
@@ -121,28 +151,28 @@ export default function HomePage({ onNavigate }) {
       {/* How It Works Section */}
       <section id="how-it-works" className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
-          <Badge variant="moss" className="mb-3">
-            GUIDED SIMPLICITY
+          <Badge variant="forest" className="mb-3">
+            SIMPLE & INTENTIONAL
           </Badge>
           <h2 className="text-2xl sm:text-4xl font-bold text-[#152a1e] tracking-tight">
             How TouchGrass AI Works
           </h2>
-          <p className="text-sm sm:text-base text-[#59695f] mt-2 max-w-xl mx-auto">
-            No infinite feeds. No addictive gamification algorithms. Just a gentle nudge out the door.
+          <p className="text-sm sm:text-base text-[#596a5f] mt-2 max-w-xl mx-auto">
+            No infinite feeds. No streaks. No points. Just a healthy nudge into the physical world.
           </p>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-5">
           <div className="flex flex-col sm:flex-row gap-5 p-6 rounded-2xl bg-[#f8f5ee] border border-[#e5dfd2]">
             <div className="w-10 h-10 rounded-xl bg-[#1b3b2b] text-white flex items-center justify-center font-bold text-sm shrink-0">
               01
             </div>
             <div>
-              <h3 className="text-base font-bold text-[#1b3b2b] mb-1">
-                Tell us how much time and energy you have
+              <h3 className="text-base font-bold text-[#152a1e] mb-1">
+                Select your time and state of mind
               </h3>
-              <p className="text-sm text-[#5a6a60] leading-relaxed">
-                Whether you have 15 minutes between meetings or 2 hours on a Sunday morning, the generator shapes a realistic, non-overwhelming itinerary.
+              <p className="text-sm text-[#57685e] leading-relaxed">
+                Whether you have 15 minutes between tasks or 60 minutes after work, pick your mood, duration, difficulty, and preferred activity.
               </p>
             </div>
           </div>
@@ -152,11 +182,11 @@ export default function HomePage({ onNavigate }) {
               02
             </div>
             <div>
-              <h3 className="text-base font-bold text-[#1b3b2b] mb-1">
-                Local AI crafts your tailored mission
+              <h3 className="text-base font-bold text-[#152a1e] mb-1">
+                Local AI crafts a safe, grounded mission
               </h3>
-              <p className="text-sm text-[#5a6a60] leading-relaxed">
-                Qwen 3 4B synthesizes creative prompts that stimulate sensory curiosity — like spotting specific bark textures or tracking bird calls.
+              <p className="text-sm text-[#57685e] leading-relaxed">
+                Qwen synthesizes 3 sensory challenges adapted to your weather, duration, and nearby green spaces with practical safety guidance.
               </p>
             </div>
           </div>
@@ -166,29 +196,29 @@ export default function HomePage({ onNavigate }) {
               03
             </div>
             <div>
-              <h3 className="text-base font-bold text-[#1b3b2b] mb-1">
-                Pocket your device & touch grass
+              <h3 className="text-base font-bold text-[#152a1e] mb-1">
+                Activate Mission Mode & pocket your phone
               </h3>
-              <p className="text-sm text-[#5a6a60] leading-relaxed">
-                The UI switches to Mission Mode with a minimal timer. When you return, mark your challenges complete and reflect on your walk.
+              <p className="text-sm text-[#57685e] leading-relaxed">
+                The screen transforms into a distraction-free timer with large, readable challenge text so you can focus completely on your surroundings.
               </p>
             </div>
           </div>
         </div>
 
         {/* CTA Card */}
-        <div className="mt-12 text-center p-8 sm:p-10 rounded-3xl bg-[#1b3b2b] text-white shadow-md">
+        <div className="mt-12 text-center p-8 sm:p-12 rounded-3xl bg-[#1b3b2b] text-white border border-[#274f39] shadow-sm">
           <h3 className="text-2xl sm:text-3xl font-bold mb-3 tracking-tight">
-            Ready to take your first break?
+            Ready to reconnect with the outdoors?
           </h3>
-          <p className="text-emerald-100/80 text-sm sm:text-base max-w-md mx-auto mb-6">
-            Generate an outdoor mission in 5 seconds and experience the benefits of green space.
+          <p className="text-emerald-100/90 text-sm sm:text-base max-w-md mx-auto mb-8 leading-relaxed">
+            Generate an outdoor mission in seconds and enjoy the calming benefits of nature.
           </p>
           <Button
             variant="secondary"
             size="lg"
             onClick={() => onNavigate('generate')}
-            className="shadow-sm"
+            className="shadow-sm font-semibold"
           >
             Create My Mission Now
           </Button>
