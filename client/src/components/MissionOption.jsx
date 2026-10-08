@@ -1,5 +1,3 @@
-import React from 'react';
-
 /**
  * MissionOption Component - Selectable pill/card for mood, time, difficulty, preference
  * @param {Object} props

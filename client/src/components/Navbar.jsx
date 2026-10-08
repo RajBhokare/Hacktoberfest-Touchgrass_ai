@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Button from './Button';
 
 /**
@@ -23,7 +23,7 @@ export default function Navbar({ currentPage, onNavigate }) {
           <button
             type="button"
             onClick={() => handleNav('home')}
-            className="flex items-center gap-2.5 text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#26533c] rounded-xl px-1 py-1"
+            className="flex items-center gap-2.5 text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#26533c] rounded-xl px-1 py-1 cursor-pointer"
           >
             <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#1b3b2b] text-white flex items-center justify-center text-lg sm:text-xl shadow-xs group-hover:bg-[#26533c] transition-colors">
               🌿
@@ -79,7 +79,7 @@ export default function Navbar({ currentPage, onNavigate }) {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2.5 rounded-xl text-[#1b3b2b] bg-[#f0ebdE] hover:bg-[#e6e0d2] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#26533c]"
+              className="p-2.5 rounded-xl text-[#1b3b2b] bg-[#f0ebdE] hover:bg-[#e6e0d2] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#26533c] cursor-pointer"
               aria-expanded={mobileMenuOpen}
               aria-label="Toggle navigation menu"
             >
@@ -103,7 +103,7 @@ export default function Navbar({ currentPage, onNavigate }) {
           <button
             type="button"
             onClick={() => handleNav('home')}
-            className={`w-full text-left px-4 py-3 rounded-xl text-base font-medium ${
+            className={`w-full text-left px-4 py-3 rounded-xl text-base font-medium cursor-pointer ${
               currentPage === 'home'
                 ? 'bg-[#1b3b2b] text-white'
                 : 'text-[#2e3c33] hover:bg-[#f0ece1]'
@@ -114,7 +114,7 @@ export default function Navbar({ currentPage, onNavigate }) {
           <button
             type="button"
             onClick={() => handleNav('generate')}
-            className={`w-full text-left px-4 py-3 rounded-xl text-base font-medium ${
+            className={`w-full text-left px-4 py-3 rounded-xl text-base font-medium cursor-pointer ${
               currentPage === 'generate'
                 ? 'bg-[#1b3b2b] text-white'
                 : 'text-[#2e3c33] hover:bg-[#f0ece1]'

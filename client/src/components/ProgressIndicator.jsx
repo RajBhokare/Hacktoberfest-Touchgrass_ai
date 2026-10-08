@@ -1,9 +1,7 @@
-import React from 'react';
-
 /**
  * ProgressIndicator Component - Visual step indicator for mission progression
  * @param {Object} props
- * @param {Array<{ key: string, label: string }>} props.steps
+ * @param {Array<{ key: string, label: string }>} [props.steps]
  * @param {string} props.currentStepKey
  * @param {(key: string) => void} [props.onStepClick]
  */

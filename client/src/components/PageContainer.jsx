@@ -1,31 +1,25 @@
-import React from 'react';
-
 /**
  * PageContainer Component
  * @param {Object} props
  * @param {React.ReactNode} props.children
- * @param {'sm' | 'md' | 'lg' | 'full'} [props.size='md']
+ * @param {'sm' | 'md' | 'lg' | 'full'} [props.size='lg']
  * @param {string} [props.className='']
  */
-export default function PageContainer({
-  children,
-  size = 'md',
-  className = '',
-}) {
-  const sizeStyles = {
-    sm: 'max-w-xl',
+export default function PageContainer({ children, size = 'lg', className = '' }) {
+  const sizeClasses = {
+    sm: 'max-w-2xl',
     md: 'max-w-4xl',
     lg: 'max-w-6xl',
-    full: 'max-w-7xl',
+    full: 'max-w-full',
   };
 
   return (
-    <main
-      className={`mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12 ${
-        sizeStyles[size] || sizeStyles.md
+    <div
+      className={`mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 ${
+        sizeClasses[size] || sizeClasses.lg
       } ${className}`}
     >
       {children}
-    </main>
+    </div>
   );
 }

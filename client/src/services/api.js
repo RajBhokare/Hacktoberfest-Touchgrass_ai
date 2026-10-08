@@ -28,7 +28,7 @@ export async function generateMission(preferences) {
       body: JSON.stringify(payload),
     });
   } catch (err) {
-    throw new Error('Local AI is unavailable. Make sure Ollama and the TouchGrass server are running.');
+    throw new Error('Local AI is unavailable. Make sure Ollama and the TouchGrass server are running.', { cause: err });
   }
 
   if (!response.ok) {
@@ -90,8 +90,8 @@ export async function checkAiHealth() {
       throw new Error('Local AI service is unreachable');
     }
     return response.json();
-  } catch {
-    throw new Error('Local AI is unavailable. Make sure Ollama and the TouchGrass server are running.');
+  } catch (err) {
+    throw new Error('Local AI is unavailable. Make sure Ollama and the TouchGrass server are running.', { cause: err });
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
@@ -31,6 +31,7 @@ export default function App() {
       case 'mission':
         return (
           <MissionPage
+            key={activeMission?.title || 'default-mission'}
             onNavigate={setCurrentPage}
             mission={activeMission}
             onMissionFinished={setSessionSummary}

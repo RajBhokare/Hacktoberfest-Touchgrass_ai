@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Badge from '../components/Badge';
 import Button from '../components/Button';
 import PageContainer from '../components/PageContainer';
@@ -29,6 +29,7 @@ export default function MissionPage({ onNavigate, mission, onMissionFinished }) 
   };
 
   const activeMission = mission || defaultMission;
+  const initialDurationSeconds = parseDurationToSeconds(activeMission.duration);
 
   // Initialize challenges
   const [challengeStates, setChallengeStates] = useState(() => {
@@ -40,21 +41,8 @@ export default function MissionPage({ onNavigate, mission, onMissionFinished }) 
     }));
   });
 
-  // Re-sync if mission changes
-  useEffect(() => {
-    const raw = activeMission.challenges || [];
-    setChallengeStates(
-      raw.map((c, idx) => ({
-        id: idx + 1,
-        text: typeof c === 'string' ? c : c.text || c.title || `Challenge ${idx + 1}`,
-        completed: false,
-      }))
-    );
-  }, [activeMission]);
-
   // Timer state
-  const initialTotalSeconds = useRef(parseDurationToSeconds(activeMission.duration));
-  const [remainingSeconds, setRemainingSeconds] = useState(initialTotalSeconds.current);
+  const [remainingSeconds, setRemainingSeconds] = useState(initialDurationSeconds);
   const [isPaused, setIsPaused] = useState(false);
   const [showConfirmFinish, setShowConfirmFinish] = useState(false);
 
@@ -85,7 +73,7 @@ export default function MissionPage({ onNavigate, mission, onMissionFinished }) 
   const totalChallenges = challengeStates.length || 3;
 
   const handleFinish = () => {
-    const elapsedSeconds = Math.max(10, initialTotalSeconds.current - remainingSeconds);
+    const elapsedSeconds = Math.max(10, initialDurationSeconds - remainingSeconds);
     const summary = {
       missionTitle: activeMission.title,
       timeSpent: formatElapsedHuman(elapsedSeconds),

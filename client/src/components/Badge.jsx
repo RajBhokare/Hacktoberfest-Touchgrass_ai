@@ -1,5 +1,3 @@
-import React from 'react';
-
 /**
  * Badge Component
  * @param {Object} props
