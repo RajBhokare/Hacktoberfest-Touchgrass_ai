@@ -290,6 +290,7 @@ touchgrass-ai/
 │
 ├── .gitignore                  # Git ignore rules (node_modules, dist, envs)
 ├── README.md                   # Project documentation
+├── vercel.json                 # Vercel multi-service deployment configuration
 └── package.json                # Monorepo task orchestration scripts
 ```
 
